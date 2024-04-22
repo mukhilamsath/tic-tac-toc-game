@@ -1,0 +1,154 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int pvalue[3][3]={{00,01,02},{10,11,12},{20,21,22}};
+char place[3][3];
+int score[2]={1,2};
+void display()
+
+{
+	cout<<"     |     |     "<<endl;
+	cout<<"  "<<pvalue[0][0]<<"  | "<<pvalue[0][1]<<"   | "<<pvalue[0][2]<<"   "<<endl;
+	cout<<"_____|_____|_____"<<endl;
+	cout<<"     |     |     "<<endl;
+	cout<<"  "<<pvalue[1][0]<<" | "<<pvalue[1][1]<<"  | "<<pvalue[1][2]<<"   "<<endl;
+	cout<<"_____|_____|_____"<<endl;
+	cout<<"     |     |     "<<endl;
+	cout<<"  "<<pvalue[2][0]<<" | "<<pvalue[2][1]<<"  | "<<pvalue[2][2]<<"   "<<endl;
+	cout<<"     |     |     "<<endl;
+}
+void display1()
+{
+	cout<<"     |     |     "<<endl;
+	cout<<"  "<<place[0][0]<<"  | "<<place[0][1]<<"   | "<<place[0][2]<<"   "<<endl;
+	cout<<"_____|_____|_____"<<endl;
+	cout<<"     |     |     "<<endl;
+	cout<<"  "<<place[1][0]<<"  | "<<place[1][1]<<"   | "<<place[1][2]<<"   "<<endl;
+	cout<<"_____|_____|_____"<<endl;
+	cout<<"     |     |     "<<endl;
+	cout<<"  "<<place[2][0]<<"  | "<<place[2][1]<<"   | "<<place[2][2]<<"   "<<endl;
+	cout<<"     |     |     "<<endl;
+}
+void getdata(char token)
+{
+	int n1,n2;
+
+	if(token=='X')
+	{
+		
+		cout<<"Enter the row no and column no:";
+		cin>>n1>>n2;
+    
+		place[n1][n2]=token;
+		
+	}
+     if(token=='O')
+	{
+		 
+		cout<<"Enter the row no and column no:";
+		cin>>n1>>n2;
+        
+		place[n1][n2]=token;
+		
+	}
+}
+bool checkwinner()
+{
+    for(int i=0;i<3;i++)
+	{
+		if(place[i][0]==place[i][1] && place[i][1]==place[i][2]&&place[i][0]!='\0')
+		{
+			return true;
+		}
+	}
+	for(int j=0;j<3;j++)
+	{
+		if(place[0][j]==place[1][j] && place[1][j]==place[2][j]&&place[0][j]!='\0')
+		{
+			return true;
+		}
+	}
+	/*for(int k=0;k<3;k++)
+   {
+   	    if(place[k][0]==place[k][1] && place[k][1]==place[k][2]&&place[k][0]!='\0')
+   	    {
+   	    	return true;
+		}
+   	}*/
+   	if(place[0][0]==place[1][1] && place[1][1]==place[2][2]&&place[0][0]!='\0')
+   	{
+   		return true;
+	}
+	if(place[0][2]==place[1][1] && place[1][1]==place[2][0]&&place[0][2]!='\0')
+	{
+		return true;
+	}
+    return false;
+	
+}
+bool draw()
+{
+	for(int i=0;i<3;i++)
+	{
+		for(int j=0;j<3;j++)
+		{
+			if(place[i][j]=='\0')
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+int main()
+{  
+    int win1=0;
+    int win2=0;
+    int n;
+    string player1,player2;
+    //char currentplayer='X';
+	cout<<"************WELCOME TO TIC-TAC-TOE GAME**************"<<endl;
+	
+        char currentplayer='X';
+	cout<<"Enter player 1:";
+	cin>>player1;
+	cout<<"Enter player 2:";
+	cin>>player2;
+	cout<<"Player 1:"<<player1<<" will be X"<<endl;
+	cout<<"Player 2:"<<player2<<" will be Y"<<endl;
+	display();
+    cout<<"=========SCORE BOARD========="<<endl;
+	cout<<player1<<":"<<win1<<endl;
+	cout<<player2<<":"<<win2<<endl;
+	cout<<"============================="<<endl;
+	while(true)
+	{
+	    
+	    cout<<" Turn for"<<currentplayer<<endl;
+	    getdata(currentplayer);
+	   display1();
+	   if(checkwinner()==true)
+	   {
+		cout<<"Player "<<currentplayer<<" wins!!!!"<<endl;
+		   if(currentplayer=='X')
+		   {
+		   	    win1++;
+		   }
+		   if(currentplayer=='Y')
+		   {
+		   	   win2++; 
+		   }
+		break;
+	   } 
+	   if(draw()==true)
+	   {
+		cout<<"Match is tie!!!!!!!!!!!!"<<endl;
+		break;
+  	   }
+       	currentplayer=(currentplayer=='X')?'O':'X';  	   
+    }
+    cout<<"=========SCORE BOARD========="<<endl;
+	cout<<player1<<":"<<win1<<endl;
+	cout<<player2<<":"<<win2<<endl;
+    return 0;
+}
